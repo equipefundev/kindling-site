@@ -1,0 +1,36 @@
+# Kindling — site institucional + lista de espera
+
+## Arquivos
+- `index.html`: site responsivo.
+- `assets/`: logo e capturas de tela fornecidas.
+- `Code.gs`: backend Google Apps Script para salvar inscrições na planilha e enviar notificação por e-mail.
+
+## Configurar Google Planilhas + e-mail
+
+1. Crie uma planilha no Google Planilhas.
+2. Abra **Extensões → Apps Script**.
+3. Apague o conteúdo inicial e cole o arquivo `Code.gs`.
+4. No início do código, substitua `SEU_EMAIL@DOMINIO.COM` pelo endereço da Fundev que receberá os avisos.
+5. Salve e execute `configurarPlanilha()` uma vez. Aceite as permissões solicitadas.
+6. No Apps Script, clique em **Implantar → Nova implantação**.
+7. Selecione **Aplicativo da Web**.
+8. Configure:
+   - **Executar como:** Eu
+   - **Quem pode acessar:** Qualquer pessoa
+9. Clique em **Implantar**, autorize e copie a URL do aplicativo da Web terminada em `/exec`.
+10. Abra `index.html` e localize:
+    `const GOOGLE_SCRIPT_URL = "COLE_AQUI_A_URL_DO_WEB_APP";`
+11. Substitua o texto pelo endereço `/exec` copiado.
+12. Publique a pasta `kindling_site` em sua hospedagem mantendo a estrutura de arquivos.
+
+## Teste antes de divulgar
+- Faça uma inscrição de teste pelo site.
+- Confira se a linha apareceu na aba **Lista de espera**.
+- Confira se o e-mail de notificação chegou ao endereço configurado.
+- Se alterar o código Apps Script depois da implantação, atualize a implantação para uma nova versão em **Implantar → Gerenciar implantações → Editar → Nova versão**.
+
+## Observações importantes
+- O envio do formulário utiliza `no-cors`: o navegador não consegue ler a resposta do Apps Script. A confirmação exibida no site indica que a solicitação foi enviada, mas o teste real deve confirmar a gravação na planilha e o recebimento do e-mail.
+- O endpoint é público para permitir inscrições sem login. Para uso em produção, monitore a planilha e considere adicionar proteção antispam (por exemplo, honeypot ou CAPTCHA) e política de privacidade publicada.
+- A página informa que a personalização de marca está planejada, não disponível atualmente.
+- Atualize a política de privacidade e os dados de contato antes de publicar.
